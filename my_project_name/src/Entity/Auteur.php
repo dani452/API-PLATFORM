@@ -32,12 +32,11 @@ class Auteur
      */
     private $prenom;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Nationnalite::class, inversedBy="auteurs")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"listGenreFull"})
-     */
-    private $nationalite;
+    // /**
+    //  * @ORM\ManyToOne(targetEntity=Nationnalite::class, inversedBy="auteurs")
+    //  * @ORM\JoinColumn(nullable=false)
+    //  */
+    // private $nationalite;
 
     /**
      * @ORM\OneToMany(targetEntity=Livre::class, mappedBy="auteur")

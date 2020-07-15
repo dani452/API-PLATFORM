@@ -29,7 +29,7 @@ class Genre
 
     /**
      * @ORM\OneToMany(targetEntity=Livre::class, mappedBy="genre")
-     * @Groups({"listGenreSimple","listGenreFull"})
+     * @Groups({"listGenreFull"})
      */
     private $livres;
 
