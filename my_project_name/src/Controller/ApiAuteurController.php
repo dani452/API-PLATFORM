@@ -50,10 +50,14 @@ class ApiAuteurController extends AbstractController
     /**
      * @Route("/api/auteur", name="api_auteur_create", methods={"POST"})
      */
-    function create(Request $request, EntityManagerInterface $manager, SerializerInterface $serializer, ValidatorInterface $validator) {
+    function create(Request $request, NationnaliteRepository $repoNationalite, EntityManagerInterface $manager, SerializerInterface $serializer, ValidatorInterface $validator) {
 
         $data=$request->getContent();
-        $auteur=$serializer->deserialize($data, Auteur::class, 'json');
+        $dataTab = json_decode($data, 'json');
+        $auteur=new Auteur();
+        $nationalite = $repoNationalite->find($dataTab['nationnalite']['id']);
+        $serializer->deserialize($data, Auteur::class, 'json', ['object_to_populate'=>$auteur]);
+        $auteur->setNationnalite($nationalite);
 
         $errors = $validator->validate($auteur);
         if(count($errors)){
@@ -74,9 +78,12 @@ class ApiAuteurController extends AbstractController
     /**
      * @Route("/api/auteur/{id}", name="api_auteur_update", methods={"PUT"})
      */
-    function edit(Auteur $auteur, Request $request, EntityManagerInterface $manager, SerializerInterface $serializer, ValidatorInterface $validator) {
+    function edit(Auteur $auteur, Request $request, NationnaliteRepository $repoNationalite, EntityManagerInterface $manager, SerializerInterface $serializer, ValidatorInterface $validator) {
         $data = $request->getContent();
-        $serializer->deserialize($data, Auteur::class, 'json',['object_to_populate'=>$auteur]);
+        $dataTab = json_decode($data, 'json');
+        $nationalite = $repoNationalite->find($dataTab['nationnalite']['id']);
+        $auteur->setNationnalite($nationalite);
+        
 
         $errors = $validator->validate($auteur);
         if(count($errors)){
