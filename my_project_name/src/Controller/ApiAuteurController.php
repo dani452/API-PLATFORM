@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\AuteurRepository;
 use App\Entity\Auteur;
+use App\Repository\NationnaliteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\MakerBundle\Validator;
