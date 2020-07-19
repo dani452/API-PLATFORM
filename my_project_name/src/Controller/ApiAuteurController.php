@@ -83,7 +83,8 @@ class ApiAuteurController extends AbstractController
         $dataTab = json_decode($data, 'json');
         $nationalite = $repoNationalite->find($dataTab['nationnalite']['id']);
         $auteur->setNationnalite($nationalite);
-        
+        $auteur->setNom($dataTab['Nom']);
+        $auteur->setPrenom($dataTab['prenom']);
 
         $errors = $validator->validate($auteur);
         if(count($errors)){
