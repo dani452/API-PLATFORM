@@ -55,6 +55,8 @@ class ApiAuteurController extends AbstractController
         $data=$request->getContent();
         $dataTab = json_decode($data, 'json');
         $auteur=new Auteur();
+        // Si la nationalité est préenregistrée dans la BDD dans une table, 
+        // on la récupère via son ID et on l'ajoute dans l'objet auteur.
         $nationalite = $repoNationalite->find($dataTab['nationnalite']['id']);
         $serializer->deserialize($data, Auteur::class, 'json', ['object_to_populate'=>$auteur]);
         $auteur->setNationnalite($nationalite);
@@ -81,6 +83,8 @@ class ApiAuteurController extends AbstractController
     function edit(Auteur $auteur, Request $request, NationnaliteRepository $repoNationalite, EntityManagerInterface $manager, SerializerInterface $serializer, ValidatorInterface $validator) {
         $data = $request->getContent();
         $dataTab = json_decode($data, 'json');
+        // Si la nationalité est préenregistrée dans la BDD dans une table, 
+        // on la récupère via son ID et on l'ajoute dans l'objet auteur.
         $nationalite = $repoNationalite->find($dataTab['nationnalite']['id']);
         $auteur->setNationnalite($nationalite);
         $auteur->setNom($dataTab['Nom']);
